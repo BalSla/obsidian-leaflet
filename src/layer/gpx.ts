@@ -167,9 +167,9 @@ export class GPX extends Layer<L.GeoJSON> {
 
         this.leafletInstance.on("mouseover", (evt: L.LeafletMouseEvent) => {
             L.DomEvent.stop(evt);
-            if (
-                !this.map.leafletInstance.hasLayer(this.hotline) &&
-                !this.targeted
+            if (this.hotline &&
+                (!this.map.leafletInstance.hasLayer(this.hotline) &&
+                !this.targeted)
             ) {
                 this.leafletInstance
                     .getLayers()[0]
@@ -179,9 +179,9 @@ export class GPX extends Layer<L.GeoJSON> {
             }
         });
         this.leafletInstance.on("mouseout", (evt: L.LeafletMouseEvent) => {
-            if (
-                this.map.leafletInstance.hasLayer(this.hotline) ||
-                this.targeted
+            if (this.hotline &&
+                (this.map.leafletInstance.hasLayer(this.hotline) ||
+                this.targeted)
             ) {
                 this.popup.close();
             } else {
@@ -194,9 +194,9 @@ export class GPX extends Layer<L.GeoJSON> {
         });
         this.leafletInstance.on("mousemove", (evt: L.LeafletMouseEvent) => {
             if (!this.parsed) return;
-            if (
-                this.map.leafletInstance.hasLayer(this.hotline) ||
-                this.targeted
+            if (this.hotline &&
+                (this.map.leafletInstance.hasLayer(this.hotline) ||
+                this.targeted)
             ) {
                 const closest = this.findClosestPoint(evt.latlng);
                 const content = this.popupContent(closest);
@@ -205,10 +205,8 @@ export class GPX extends Layer<L.GeoJSON> {
         });
     }
     switch(which: "cad" | "ele" | "hr" | "speed" | "default") {
-        if (this.hotline) {
-            if (this.map.leafletInstance.hasLayer(this.hotline))
-                this.hotline.remove();
-            }
+        if (this.hotline && this.map.leafletInstance.hasLayer(this.hotline))
+            this.hotline.remove();
         this.displaying = which;
         this.hide();
         switch (which) {
