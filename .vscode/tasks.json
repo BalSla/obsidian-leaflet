@@ -1,0 +1,24 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Build",
+        "type": "shell",
+        "command": "npm run build",
+        "group": "build",
+        "problemMatcher": [],
+        "env": {
+          "OUTDIR": "build"
+        }
+      },
+      {
+        "label": "Build and copy artifacts",
+        "group": "build",
+        "type": "shell", 
+        "command": "cp -r main.js styles.css $LEAFLET_PLUGIN_PATH",
+        "problemMatcher": [],
+        "dependsOn": "Build"
+      }
+    ]
+  }
+  

@@ -205,8 +205,10 @@ export class GPX extends Layer<L.GeoJSON> {
         });
     }
     switch(which: "cad" | "ele" | "hr" | "speed" | "default") {
-        if (this.map.leafletInstance.hasLayer(this.hotline))
-            this.hotline.remove();
+        if (this.hotline) {
+            if (this.map.leafletInstance.hasLayer(this.hotline))
+                this.hotline.remove();
+            }
         this.displaying = which;
         this.hide();
         switch (which) {

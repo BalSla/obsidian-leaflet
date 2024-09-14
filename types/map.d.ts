@@ -370,7 +370,6 @@ declare class ImageMap extends BaseMap /* <L.ImageOverlay> */ {
 
     buildLayer(layer: ImageLayerData): Promise<void>;
 }
-
 export type BaseMapType = RealMap | ImageMap;
 
 export interface SavedMapData {
